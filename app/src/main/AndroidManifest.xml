@@ -258,6 +258,9 @@
         <activity
             android:name=".view.fragment.user.news.NewsCoreInfoActivity"
             android:screenOrientation="portrait" />
+        <!--发布图文、视频页-->
+        <activity android:name=".view.fragment.publish.PublishActivity"
+            android:screenOrientation="portrait"/>
         <!-- 新浪分享 -->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
