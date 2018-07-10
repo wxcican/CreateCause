@@ -1,0 +1,1 @@
+package com.mzth.createcause.view.fragment.user.money;import com.mzth.createcause.entity.PaymentTypeEntity;import java.util.List;/** * Created by 股份购买支付方式UI on 2017/10/18 0018. */public interface IPaymentTypeActivity {    /**     * 初始化适配器     *     * @param paymentTypeEntities     */    void initAdapter(List<PaymentTypeEntity> paymentTypeEntities);}

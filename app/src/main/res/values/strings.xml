@@ -1,0 +1,1 @@
+<resources>    <string name="app_name">创业宗</string>    <string name="home_hint">创业宗为您提供快捷导航服务</string>    <dimen name="SizeNewsContent">15sp</dimen>    <dimen name="SizeNewsHint">13sp</dimen>    <dimen name="SizeNewsTitle">16sp</dimen></resources>

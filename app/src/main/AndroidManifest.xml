@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mzth.createcause">
+
+    <!-- 请求访问网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 请求访问网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 写入外部存储 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取外部存储 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 读取手机状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 接入WiFi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 阅读日志 -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- 调用摄像头 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 写 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- 推荐的权限 -->
+    <!-- 添加如下权限，以便使用更多的第三方SDK和更精准的统计数据 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/log"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5a6fe55df43e483ba9000075" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Create_Cause" />
+
+        <activity
+            android:name=".view.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemess"
+            android:windowSoftInputMode="stateVisible|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- Bugly -->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+        <!-- Bugly -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <!-- 1资讯所有分类 -->
+        <activity
+            android:name=".view.shareui.AllTypeActivity"
+            android:screenOrientation="portrait" />
+        <!-- 2搜索 -->
+        <activity
+            android:name=".view.shareui.SearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 3登录 -->
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 4欢迎 -->
+        <activity
+            android:name=".view.login.WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <!-- 5用户设置 -->
+        <activity
+            android:name=".view.fragment.user.set.UserSetActivity"
+            android:screenOrientation="portrait" />
+        <!-- 6用户信息 -->
+        <activity
+            android:name=".view.fragment.user.info.impl.UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 7绑定账号 -->
+        <activity
+            android:name=".view.fragment.user.info.impl.BindAccountNumberActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 8提现账号 -->
+        <activity
+            android:name=".view.fragment.user.info.impl.ExtractAccountNumberActivity"
+            android:screenOrientation="portrait" />
+        <!-- 9修改密码 -->
+        <activity
+            android:name=".view.fragment.user.info.impl.ModifyPassWordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 10任务区 -->
+        <activity
+            android:name=".view.fragment.user.task.TaskActivity"
+            android:screenOrientation="portrait" />
+        <!-- 11我的资产 -->
+        <activity
+            android:name=".view.fragment.user.money.MoneyMessageActivity"
+            android:screenOrientation="portrait" />
+        <!-- 12提现记录 -->
+        <activity
+            android:name=".view.fragment.user.money.WithdrawDepositInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 13申请提现 -->
+        <activity
+            android:name=".view.fragment.user.money.WithdrawDepositRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 14收入明细 -->
+        <activity
+            android:name=".view.fragment.user.money.income.impl.InComeInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 15收入明细 分享文章 -->
+        <activity
+            android:name=".view.fragment.user.money.income.ShareEssayActivity"
+            android:screenOrientation="portrait" />
+        <!-- 16收入明细 发布文章 -->
+        <activity
+            android:name=".view.fragment.user.money.income.ReleaseEssayActivity"
+            android:screenOrientation="portrait" />
+        <!-- 17收入明细 邀请会员 -->
+        <activity
+            android:name=".view.fragment.user.money.income.InviteVIPActivity"
+            android:screenOrientation="portrait" />
+        <!-- 18收入明细 邀请外门弟子 -->
+        <activity
+            android:name=".view.fragment.user.money.income.InviteOutActivity"
+            android:screenOrientation="portrait" />
+        <!-- 19收入明细 搜索引擎 -->
+        <activity
+            android:name=".view.fragment.user.money.income.SearchEnginesActivity"
+            android:screenOrientation="portrait" />
+        <!-- 20购买股份 -->
+        <activity
+            android:name=".view.fragment.user.money.BuyStockActivity"
+            android:screenOrientation="portrait" />
+        <!-- 21支付方式 -->
+        <activity
+            android:name=".view.fragment.user.money.impl.PayMentTypeActivity"
+            android:screenOrientation="portrait" />
+        <!-- 22股份分红 -->
+        <activity
+            android:name=".view.fragment.user.money.StockBounsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 23股权说明 -->
+        <activity
+            android:name=".view.fragment.user.money.StockExplainActivity"
+            android:screenOrientation="portrait" />
+        <!-- 24我的团队 -->
+        <activity
+            android:name=".view.fragment.user.member.MyMemberActivity"
+            android:screenOrientation="portrait" />
+        <!-- 25我的团队用户详情 -->
+        <activity
+            android:name=".view.fragment.user.member.MemberInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 26外门弟子 -->
+        <activity
+            android:name=".view.fragment.user.outpupil.OutPupilActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 27消息中心 -->
+        <activity
+            android:name=".view.fragment.user.news.NewsCoreActivity"
+            android:screenOrientation="portrait" />
+        <!-- 28商学院 -->
+        <activity
+            android:name=".view.fragment.user.commerce.CommerceActivity"
+            android:screenOrientation="portrait" />
+        <!-- 29商学院详情 -->
+        <activity
+            android:name=".view.fragment.user.commerce.CommerceInfoActicity"
+            android:screenOrientation="portrait" />
+        <!-- 30关于创业宗 -->
+        <activity
+            android:name=".view.fragment.user.set.AboutAppActivity"
+            android:screenOrientation="portrait" />
+        <!-- 31意见反馈 -->
+        <activity
+            android:name=".view.fragment.user.set.FeedBackActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 32隐私协议反馈 -->
+        <activity
+            android:name=".view.fragment.user.set.ProtoclActivity"
+            android:screenOrientation="portrait" />
+        <!-- 33文章管理 -->
+        <activity
+            android:name=".view.fragment.user.eaaaymessage.EssayMessageActivity"
+            android:screenOrientation="portrait" />
+        <!-- 34草稿箱 -->
+        <activity
+            android:name=".view.fragment.user.eaaaymessage.EssayDraftActivity"
+            android:screenOrientation="portrait" />
+        <!-- 35 发布 -->
+        <activity
+            android:name=".view.fragment.user.eaaaymessage.ReleaseActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 36 发布类型选择 -->
+        <activity
+            android:name=".view.fragment.user.eaaaymessage.ReleaseTypeActivity"
+            android:screenOrientation="portrait" />
+        <!-- 37 发布编辑 -->
+        <activity
+            android:name=".view.fragment.user.eaaaymessage.ReleaseEditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 38 资讯详情 -->
+        <activity
+            android:name=".view.fragment.news.impl.NewsInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 39 查看评论 -->
+        <activity
+            android:name=".view.fragment.news.impl.MoreCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 40 发布用户信息 -->
+        <activity
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".view.fragment.news.impl.ReleaseUserInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 41 评论 -->
+        <activity
+            android:name=".adapter.news.ReleaseCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|stateHidden" />
+        <!-- 42 视频详情 -->
+        <activity
+            android:name=".view.fragment.video.impl.VideoInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <!-- 消息详情 -->
+        <activity
+            android:name=".view.fragment.user.news.NewsCoreInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 新浪分享 -->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- QQ -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1106635711" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 微信 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".view.fragment.news.impl.AuthorNewsFragment" />
+        <activity android:name=".view.fragment.news.impl.AuthorVideoFragment"></activity>
+    </application>
+
+</manifest>

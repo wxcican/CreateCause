@@ -1,0 +1,1 @@
+package com.mzth.createcause.model.user;import com.mzth.createcause.entity.InComeInfo;import java.util.List;/** * Created by 收入明细接口 on 2017/10/16 0016. */public interface IInComeInfo {    /**     * 获取收入明细列表     *     * @return     */    List<InComeInfo> getInComeList();}

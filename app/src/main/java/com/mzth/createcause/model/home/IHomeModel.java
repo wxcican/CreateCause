@@ -1,0 +1,1 @@
+package com.mzth.createcause.model.home;import android.os.Handler;import com.mzth.createcause.entity.home.HomeEntity;/** * Created by Administrator on 2018/1/12 0012. */public interface IHomeModel{   void getHomeData(int page, Handler handler);}

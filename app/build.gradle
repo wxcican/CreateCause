@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'create_key'
+            keyPassword '123123'
+            storeFile file('D:/AS-workspace/CreateCause/q_create.jks')
+            storePassword '123123'
+        }
+    }
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "com.mzth.createcause"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 6
+        versionName "1.0.5"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        signingConfig signingConfigs.config
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile files('libs/open_sdk_r5923_lite.jar')
+    compile files('libs/SocialSDK_QQ_Full.jar')
+    compile files('libs/SocialSDK_Sina_Full.jar')
+    compile files('libs/SocialSDK_WeiXin_Full.jar')
+    compile files('libs/umeng_shareboard_widget.jar')
+    compile files('libs/umeng_social_api.jar')
+    compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_social_shareboard.jar')
+    compile files('libs/umeng_social_tool.jar')
+    compile files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
+    compile files('libs/weiboSDKCore.jar')
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.shuyu:GSYVideoPlayer:2.0.8'
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'liji.library.dev:citypickerview:0.7.0'
+    compile 'top.zibin:Luban:1.1.3'
+    compile 'com.belerweb:pinyin4j:2.5.1'
+    compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.3'
+    compile 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
+    compile 'com.android.support:multidex:1.0.1'
+    testCompile 'junit:junit:4.12'
+}

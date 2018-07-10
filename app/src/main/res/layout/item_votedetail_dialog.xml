@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/wx_et"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="微信登录绑定"
+        android:textColor="#444444"
+        android:textSize="17sp" />
+
+    <View style="@style/ViewDivHorizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="注: 您正在进行微信登录绑定，一旦绑定，使用微信将会直接登录您的账号，请慎重绑定您的账号!谢谢合作~~"
+        android:textColor="@color/colorMain"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/wx_et"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="账号: "
+            android:textColor="#555555"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#dddddd" />
+
+        <EditText
+            android:id="@+id/et_login_wx_1"
+            android:paddingLeft="5dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:inputType="phone"
+            android:maxLength="11" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/wx_et"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="密码: "
+            android:textColor="#555555"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#dddddd" />
+
+        <EditText
+            android:id="@+id/et_login_wx_2"
+            android:paddingLeft="5dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_login_wx_1"
+        style="@style/ViewButton"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="绑定" />
+
+</LinearLayout>

@@ -1,0 +1,1 @@
+package com.mzth.createcause.base;import com.mzth.createcause.util.RetentionDataUtil;/** * Created by Administrator on 2018/1/17 0017. */public class BasePresenter {    protected String user_Id=RetentionDataUtil.getRetention().getString("userId", "");    protected String auth_key=RetentionDataUtil.getRetention().getString("userKey", "");}

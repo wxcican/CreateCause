@@ -1,0 +1,1 @@
+package com.mzth.createcause.model.core;import com.lzy.okgo.callback.StringCallback;/** * Created by 资讯和视频分类接口 on 2018/1/17 0017. */public interface IInfromationVideoType {    /**     * 查询分类数据     *     * @param callback 数据返回接口     */    void queryType(StringCallback callback);}
