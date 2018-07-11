@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mzth.createcause">
 
     <!-- 请求访问网络状态 -->
@@ -260,6 +261,14 @@
             android:screenOrientation="portrait" />
         <!--发布图文、视频页-->
         <activity android:name=".view.fragment.publish.PublishActivity"
+            android:screenOrientation="portrait"/>
+        <!--图片选择页-->
+        <activity android:name="com.lidong.photopicker.PhotoPickerActivity"
+            android:theme="@style/PhotoPickerTheme"
+            android:screenOrientation="portrait"/>
+        <!--图片浏览页-->
+        <activity android:name="com.lidong.photopicker.PhotoPreviewActivity"
+            android:theme="@style/PhotoPickerTheme"
             android:screenOrientation="portrait"/>
         <!-- 新浪分享 -->
         <activity
