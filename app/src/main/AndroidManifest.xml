@@ -263,11 +263,11 @@
         <activity android:name=".view.fragment.publish.PublishActivity"
             android:screenOrientation="portrait"/>
         <!--图片选择页-->
-        <activity android:name="com.lidong.photopicker.PhotoPickerActivity"
+        <activity android:name=".view.fragment.publish.PhotoPickerActivity"
             android:theme="@style/PhotoPickerTheme"
             android:screenOrientation="portrait"/>
         <!--图片浏览页-->
-        <activity android:name="com.lidong.photopicker.PhotoPreviewActivity"
+        <activity android:name=".view.fragment.publish.PhotoPreviewActivity"
             android:theme="@style/PhotoPickerTheme"
             android:screenOrientation="portrait"/>
         <!-- 新浪分享 -->

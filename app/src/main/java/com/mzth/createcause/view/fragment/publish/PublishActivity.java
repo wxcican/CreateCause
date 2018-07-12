@@ -2,34 +2,23 @@ package com.mzth.createcause.view.fragment.publish;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestOptions;
-import com.lidong.photopicker.PhotoPickerActivity;
-import com.lidong.photopicker.PhotoPreviewActivity;
-import com.lidong.photopicker.SelectModel;
-import com.lidong.photopicker.intent.PhotoPickerIntent;
-import com.lidong.photopicker.intent.PhotoPreviewIntent;
 import com.mzth.createcause.R;
 import com.mzth.createcause.base.BaseActivity;
 import com.mzth.createcause.util.CommonUtil;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PublishActivity extends BaseActivity {
     private TextView  base_title;
@@ -41,10 +30,13 @@ public class PublishActivity extends BaseActivity {
     private int mode;
     private static final int REQUEST_CAMERA_CODE  = 10;
     private static final int REQUEST_PREVIEW_CODE = 20;
+    private static final int REQUEST_VIDEO_CODE = 30;
     private EditText et_title, et_content;
-    private GridView          mGridView;
-    private GridAdapter       mGridAdapter;
-    private ArrayList<String> imagePaths;
+    private GridView mGridView;
+    private View     video_rl, cover_cl;//上传视频布局，视频封面选择
+    private StandardGSYVideoPlayer video_gsy;//视频播放控件
+    private PublishGridAdapter mGridAdapter;
+    private ArrayList<String>  imagePaths;
 
     public static void startPublishActivity(Context context, int mode) {
         Intent intent = new Intent(context, PublishActivity.class);
@@ -68,6 +60,23 @@ public class PublishActivity extends BaseActivity {
         et_title = CommonUtil.getCommonUtil().bindView(this, R.id.et_title_activity_publish);
         et_content = CommonUtil.getCommonUtil().bindView(this, R.id.et_content_activity_publish);
         mGridView = CommonUtil.getCommonUtil().bindView(this, R.id.gv_activity_publish);
+        video_rl = CommonUtil.getCommonUtil().bindView(this, R.id.video_rl_activity_publish);
+        cover_cl = CommonUtil.getCommonUtil().bindView(this, R.id.cover_iv_activity_publish);
+        video_gsy = CommonUtil.getCommonUtil().bindView(this, R.id.gsy_activity_publish);
+
+        mode = getIntent().getIntExtra(PUBLISH_MODE, MODE_TEXT);
+        if (mode == MODE_TEXT) {
+            mGridView.setVisibility(View.VISIBLE);
+            video_rl.setVisibility(View.GONE);
+            cover_cl.setVisibility(View.GONE);
+            video_gsy.setVisibility(View.GONE);
+        } else if (mode == MODE_VIDEO) {
+            mGridView.setVisibility(View.GONE);
+            video_rl.setVisibility(View.VISIBLE);
+            cover_cl.setVisibility(View.VISIBLE);
+            video_gsy.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -86,16 +95,17 @@ public class PublishActivity extends BaseActivity {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //判断点击的是否是添加图片
                 String imgs = (String) parent.getItemAtPosition(position);
                 if ("paizhao".equals(imgs)) {
                     PhotoPickerIntent intent = new PhotoPickerIntent(PublishActivity.this);
                     intent.setSelectModel(SelectModel.MULTI);
                     intent.setShowCarema(true); // 是否显示拍照
-                    intent.setMaxTotal(6); // 最多选择照片数量，默认为6
+                    intent.setMaxTotal(9); // 最多选择照片数量，默认为9
                     intent.setSelectedPaths(imagePaths); // 已选中的照片地址， 用于回显选中状态
                     startActivityForResult(intent, REQUEST_CAMERA_CODE);
                 } else {
-                    Toast.makeText(PublishActivity.this, "1" + position, Toast.LENGTH_SHORT).show();
+                    CommonUtil.getCommonUtil().toast("点击了：" + position);
                     PhotoPreviewIntent intent = new PhotoPreviewIntent(PublishActivity.this);
                     intent.setCurrentItem(position);
                     intent.setPhotoPaths(imagePaths);
@@ -104,7 +114,7 @@ public class PublishActivity extends BaseActivity {
             }
         });
         imagePaths.add("paizhao");
-        mGridAdapter = new GridAdapter(imagePaths);
+        mGridAdapter = new PublishGridAdapter(PublishActivity.this, imagePaths);
         mGridView.setAdapter(mGridAdapter);
     }
 
@@ -114,6 +124,17 @@ public class PublishActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 CommonUtil.getCommonUtil().toast("执行发布请求");
+            }
+        });
+        video_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("video/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent,
+                        REQUEST_VIDEO_CODE);
             }
         });
     }
@@ -126,12 +147,12 @@ public class PublishActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 // 选择照片
                 case REQUEST_CAMERA_CODE:
                     ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
-                    Log.d(TAG, "数量："+list.size());
+                    Log.d(TAG, "数量：" + list.size());
                     loadAdpater(list);
                     break;
                 // 预览
@@ -139,87 +160,35 @@ public class PublishActivity extends BaseActivity {
                     ArrayList<String> ListExtra = data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT);
                     loadAdpater(ListExtra);
                     break;
+                    //视频
+                case REQUEST_VIDEO_CODE:
+                    Uri uri = data.getData();
+                    Log.e("aaa","拿到视频路径：" + uri.toString());
+                    CommonUtil.getCommonUtil().toast("拿到视频路径");
+                    video_rl.setVisibility(View.GONE);
+                    video_gsy.setVisibility(View.VISIBLE);
+
+                    // TODO: 2018/7/12 完成视频点击播放 
+                    break;
             }
         }
     }
 
-    private void loadAdpater(ArrayList<String> paths){
-        if (imagePaths!=null&& imagePaths.size()>0){
+    private void loadAdpater(ArrayList<String> paths) {
+        if (imagePaths != null && imagePaths.size() > 0) {
             imagePaths.clear();
         }
-        if (paths.contains("paizhao")){
+        if (paths.contains("paizhao")) {
             paths.remove("paizhao");
         }
         paths.add("paizhao");
         imagePaths.addAll(paths);
-        mGridAdapter  = new GridAdapter(imagePaths);
+        mGridAdapter = new PublishGridAdapter(PublishActivity.this, imagePaths);
         mGridView.setAdapter(mGridAdapter);
-        try{
+        try {
             JSONArray obj = new JSONArray(imagePaths);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private class GridAdapter extends BaseAdapter {
-        private List<String>   listUrls;
-        private LayoutInflater inflater;
-
-        public GridAdapter(List<String> listUrls) {
-            this.listUrls = listUrls;
-            if (listUrls.size() == 7) {
-                listUrls.remove(listUrls.size() - 1);
-            }
-            inflater = LayoutInflater.from(PublishActivity.this);
-        }
-
-        @Override
-        public int getCount() {
-            return listUrls.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return listUrls.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                convertView = inflater.inflate(R.layout.item_publish_pic_add, parent, false);
-                holder.mImageView = (ImageView) convertView.findViewById(R.id.iv_item_publsh_pic_add);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-            final String path = listUrls.get(position);
-            if (path.equals("paizhao")) {
-                holder.mImageView.setImageResource(R.drawable.add);
-            } else {
-                RequestOptions options = new RequestOptions();
-                options.centerCrop()
-                        .placeholder(R.mipmap.default_error)
-                        .error(R.mipmap.default_error);
-
-                Glide.with(PublishActivity.this)
-                        .load(path)
-                        .transition(new DrawableTransitionOptions().crossFade())
-                        .apply(options)
-                        .into(holder.mImageView);
-            }
-            return convertView;
-        }
-
-        class ViewHolder {
-            ImageView mImageView;
         }
     }
 }

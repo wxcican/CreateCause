@@ -74,6 +74,7 @@ dependencies {
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.android.support:multidex:1.0.1'
+    //用于图片展示页
+    compile 'com.github.chrisbanes.photoview:library:+'
     testCompile 'junit:junit:4.12'
-    compile project(':pictureselector')
 }
